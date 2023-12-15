@@ -18,15 +18,43 @@ function createLineReader(filePath: string) {
 app.listen(8089, () => {
   // doDay4(`${inputFileBase}/Day04_test.txt`)
   // doDay4(`${inputFileBase}/Day04.txt`)
+  doDay1(`${inputFileBase}/Day01_test.txt`)
+  doDay1(`${inputFileBase}/Day01.txt`)
 });
+
+function doDay1(input: string) {
+  let sum = 0;
+
+  const lineReader = createLineReader(input);
+  lineReader.on('line',
+    (line: string) => {
+
+    // First solution
+    //   let calibration = Number(line.replace(/\D/g, ''));
+    //   if (calibration < 10) {
+    //     calibration = Number(`${calibration}${calibration}`);
+    //   } else if (calibration > 99) {
+    //     calibration = Number(`${calibration.toString()[0]}${calibration.toString()[calibration.toString().length -1]}`);
+    //   }
+    //   sum += calibration;
+
+      //Better solution
+      let digitsRepresentation = line.replace(/\D/g, '');
+      let calibration = `${digitsRepresentation[0]}${digitsRepresentation[digitsRepresentation.length - 1]}`;
+      sum += Number(calibration);
+    });
+
+  lineReader.on('close', () =>     console.log(`${input.includes('test') ? `Test data` : `Actual data` } - Answer: ${sum}`));
+
+}
 
 function doDay4(input: string) {
 
   let totalPoints = 0;
 
-  const linerReader = createLineReader(input);
-  linerReader.on('line',
-    (line: String) => {
+  const lineReader = createLineReader(input);
+  lineReader.on('line',
+    (line: string) => {
       const winningNumbers = line.split(':')[1].split('|')[0].split(' ').filter(Number);
       const myNumbers = line.split('|')[1].split(' ').filter(Number);
 
@@ -37,6 +65,6 @@ function doDay4(input: string) {
 
     });
 
-  linerReader.on('close', () =>
+  lineReader.on('close', () =>
     console.log(`${input.includes('test') ? `Test data` : `Actual data` } - Answer: ${totalPoints}`));
 }
