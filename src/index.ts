@@ -3,10 +3,7 @@ import fs from 'fs';
 import readline from 'readline';
 
 const app = express();
-const testInput = 'src/resources/Day04_test.txt';
-const input = 'src/resources/Day04.txt';
-
-let totalPoints = 0;
+const inputFileBase = 'src/resources';
 
 // app.get('/', (req, res) => {
 //   res.send('aoc');
@@ -18,8 +15,15 @@ function createLineReader(filePath: string) {
   });
 }
 
-app.listen(8081, () => {
-  // console.log(`server running : http://localhost:8081`);
+app.listen(8089, () => {
+  // doDay4(`${inputFileBase}/Day04_test.txt`)
+  // doDay4(`${inputFileBase}/Day04.txt`)
+});
+
+function doDay4(input: string) {
+
+  let totalPoints = 0;
+
   const linerReader = createLineReader(input);
   linerReader.on('line',
     (line: String) => {
@@ -34,6 +38,5 @@ app.listen(8081, () => {
     });
 
   linerReader.on('close', () =>
-    console.log(`Test data - Answer: ${totalPoints}`));
-
-});
+    console.log(`${input.includes('test') ? `Test data` : `Actual data` } - Answer: ${totalPoints}`));
+}
