@@ -44,7 +44,7 @@ function doDay1(input: string) {
       sum += Number(calibration);
     });
 
-  lineReader.on('close', () =>     console.log(`${input.includes('test') ? `Test data` : `Actual data` } - Answer: ${sum}`));
+  lineReader.on('close', () => outputResult(input, sum));
 
 }
 
@@ -66,5 +66,9 @@ function doDay4(input: string) {
     });
 
   lineReader.on('close', () =>
-    console.log(`${input.includes('test') ? `Test data` : `Actual data` } - Answer: ${totalPoints}`));
+    outputResult(input, totalPoints));
+}
+
+function outputResult(input: string, result: any) {
+  console.log(`${input.includes('test') ? `Test data` : `Actual data` } - Answer: ${result}`)
 }
